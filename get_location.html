@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>获取位置</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 20px;
+padding: 0;
+}
+button {
+padding: 10px 20px;
+font-size: 18px;
+}
+.output {
+margin-top: 20px;
+font-size: 20px;
+}
+</style>
+</head>
+<body>
+<h2>获取当前位置坐标</h2>
+<button onclick="getLocation()">获取经纬度</button>
+
+
+<div class="output">
+<p>经度（lng）：<span id="lng">--</span></p>
+<p>纬度（lat）：<span id="lat">--</span></p>
+</div>
+
+
+<script>
+function getLocation() {
+if (!navigator.geolocation) {
+alert("浏览器不支持获取位置");
+return;
+}
+
+
+navigator.geolocation.getCurrentPosition(
+(pos) => {
+const lng = pos.coords.longitude.toFixed(7);
+const lat = pos.coords.latitude.toFixed(7);
+
+
+document.getElementById("lng").innerText = lng;
+document.getElementById("lat").innerText = lat;
+},
+(err) => {
+alert("获取失败: " + err.message);
+},
+{
+enableHighAccuracy: true,
+timeout: 10000
+}
+);
+}
+</script>
+</body>
+</html>
